@@ -6,8 +6,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Topwire\Context\Attribute\Section;
 use Topwire\Context\ContextStack;
 use Topwire\Context\TopwireContextFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -52,12 +50,9 @@ class PluginViewHelper extends AbstractViewHelper
         }
         $contextStack = new ContextStack($renderingContext->getViewHelperVariableContainer());
         $contextStack->push($context);
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
-        $configurationManager->getContentObject()?->setRequest($request->withAttribute('topwire', $context));
         $renderingContext->setRequest($request->withAttribute('topwire', $context));
         $renderedChildren = $renderChildrenClosure();
         $renderingContext->setRequest($request);
-        $configurationManager->getContentObject()?->setRequest($request);
         $contextStack->pop();
 
         return (string)$renderedChildren;

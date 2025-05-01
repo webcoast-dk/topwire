@@ -37,7 +37,7 @@ class TopwireContextFactory
 
         // @todo: decide whether this needs to be changed, or set via argument, or maybe even removed completely
         $isOverride = isset($arguments['extensionName']);
-        $contentRecordId = $isOverride ? null : $configurationManager->getContentObject()?->currentRecord;
+        $contentRecordId = $isOverride ? null : $request->getAttribute('currentContentObject')?->currentRecord;
 
         $plugin = new Plugin(
             extensionName: $extensionName,
@@ -73,7 +73,7 @@ class TopwireContextFactory
 
     private function resolveRenderingPath(string $extensionName, string $pluginName, ?string $pluginSignature): RenderingPath
     {
-        $contentRenderingConfig = $this->typoScriptFrontendController->tmpl->setup['tt_content.'];
+        $contentRenderingConfig = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.typoscript')->getSetupArray()['tt_content.'];
         $pluginSignature ??= strtolower(str_replace(' ', '', ucwords(str_replace('_', ' ', $extensionName))) . '_' . $pluginName);
         if (isset($contentRenderingConfig[$pluginSignature . '.']['20'])) {
             return new RenderingPath(sprintf('tt_content.%s.20', $pluginSignature));

@@ -8,6 +8,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Topwire\ContentObject\TopwireContentObject;
 use Topwire\Context\TopwireContext;
 use Topwire\Exception\InvalidContentType;
+use TYPO3\CMS\Core\TypoScript\FrontendTypoScript;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -30,12 +31,15 @@ class TopwireRendering implements MiddlewareInterface
         $frontendController->config['config']['debug'] = 0;
         $frontendController->config['config']['disableAllHeaderCode'] = 1;
         $frontendController->config['config']['disableCharsetHeader'] = 0;
-        $frontendController->pSetup = [
+        /** @var FrontendTypoScript $frontendTypoScript */
+        $frontendTypoScript = $request->getAttribute('frontend.typoscript');
+        $frontendTypoScript->setPageArray([
             '10' => TopwireContentObject::NAME,
             '10.' => [
                 'context' => $context,
             ],
-        ];
+        ]);
+        $request = $request->withAttribute('frontend.typoscript', $frontendTypoScript);
 
         return $this->validateContentType($request, $handler->handle($request));
     }

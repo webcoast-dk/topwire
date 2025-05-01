@@ -31,7 +31,7 @@ class TopwireContentObject extends AbstractContentObject
         }
 
         $frameOptions = new FrameOptions();
-        $pageTitle = $this->getTypoScriptFrontendController()->generatePageTitle();
+        $pageTitle = $this->getTypoScriptFrontendController()->generatePageTitle($this->request);
         if ($pageTitle !== '') {
             $frameOptions = new FrameOptions(pageTitle: $pageTitle);
         }

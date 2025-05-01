@@ -1,0 +1,4 @@
+# This must be set to enable wrapping
+tt_content.stdWrap.turboFrameWrap {
+    field = tx_turbo_wrap_in_frame
+}

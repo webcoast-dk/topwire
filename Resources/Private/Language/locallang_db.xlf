@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="tt_content.tabs.topwire.title">
+                <source>Topwire</source>
+            </trans-unit>
+
+            <trans-unit id="tt_content.tx_turbo_wrap_in_frame.label">
+                <source>Wrap in Turbo frame</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_turbo_frame_id.label">
+                <source>Frame id</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
